@@ -67,8 +67,8 @@ lib/
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/meldeeb/E_Commerce_App.git
-   cd E_Commerce_App
+   git clone https://github.com/meladawi10/Final_E_Commerce_App.git
+   cd Final_E_Commerce_App
    ```
 
 2. **Install Dependencies:**
