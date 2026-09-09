@@ -1,0 +1,21 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build Android APK"
+  lane :build_apk do
+    # Clean Flutter build directory
+    sh "flutter clean || echo 'Flutter clean failed'"
+
+    # Build Flutter APK with production flavor
+    sh "flutter build apk --release --flavor production --target lib/main_production.dart --no-tree-shake-icons || echo 'Build failed'"
+  end
+
+  desc "Build Android App Bundle"
+  lane :build_aab do
+    # Clean Flutter build directory
+    sh "flutter clean || echo 'Flutter clean failed'"
+
+    # Build Flutter AAB with production flavor
+    sh "flutter build appbundle --release --flavor production --target lib/main_production.dart --no-tree-shake-icons || echo 'Build failed'"
+  end
+end

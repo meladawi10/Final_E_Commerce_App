@@ -1,0 +1,880 @@
+﻿
+====================================================
+FILE: C:\Users\melad\Desktop\Final_E_Commerce_App-main\Final_E_Commerce_App-main\lib\core\common\view_models\vertical_product_card_view_model.dart
+====================================================
+
+
+====================================================
+FILE: C:\Users\melad\Desktop\Final_E_Commerce_App-main\Final_E_Commerce_App-main\lib\core\common\widgets\horizontal_product_card.dart
+====================================================
+
+import 'package:flutter/material.dart';
+
+class HorizontalProductCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final String price;
+  final String oldPrice;
+  final String discount;
+  final String imageUrl;
+
+  const HorizontalProductCard({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.price,
+    required this.oldPrice,
+    required this.discount,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
+      width: 178, // Ø§Ù„Ø¹Ø±Ø¶ Ø§Ù„Ø«Ø§Ø¨Øª Ù„Ù„ÙƒØ§Ø±Øª
+      decoration: BoxDecoration(
+        color: dark ? Colors.grey[850] : Colors.grey[100],
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 1. Ø§Ù„Ø¬Ø²Ø¡ Ø§Ù„Ø®Ø§Øµ Ø¨Ø§Ù„ØµÙˆØ±Ø© Ø§Ù„Ø¹Ù„ÙˆÙŠØ©
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            child: Stack(
+              children: [
+                // ðŸ‘ˆ Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„ØµÙˆØ±Ø© Ù…Ù† Ø§Ù„Ù†Øª
+                SizedBox(
+                  height: 130, // Ø§Ø±ØªÙØ§Ø¹ Ø§Ù„ØµÙˆØ±Ø©
+                  width: double.infinity,
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    // Ù„Ùˆ Ø§Ù„ØµÙˆØ±Ø© ÙÙŠÙ‡Ø§ Ù…Ø´ÙƒÙ„Ø© ØªØ¸Ù‡Ø± Ø£ÙŠÙƒÙˆÙ†Ø© Ø¨Ø¯Ù„ Ø¥ÙŠØ±ÙˆØ± Ø£Ø­Ù…Ø±
+                    errorBuilder: (context, error, stackTrace) => const Icon(
+                      Icons.image_not_supported,
+                      size: 40,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                // Ø¨Ø§Ø¯Ø¬ Ø§Ù„Ø®ØµÙ… (Ø¨ÙŠØ¸Ù‡Ø± Ø¨Ø³ Ù„Ùˆ ÙÙŠ Ø®ØµÙ…)
+                if (discount.isNotEmpty)
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        discount,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          
+          // 2. Ø§Ù„Ø¬Ø²Ø¡ Ø§Ù„Ø®Ø§Øµ Ø¨Ø§Ù„Ù†ØµÙˆØµ (Ø§Ø³ØªØ®Ø¯Ù…Ù†Ø§ Expanded Ø¹Ø´Ø§Ù† Ù†Ù…Ù†Ø¹ Ø§Ù„Ù€ Overflow)
+          Expanded( 
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: dark ? Colors.white : Colors.black87,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1, // Ø³Ø·Ø± ÙˆØ§Ø­Ø¯ ÙƒØ­Ø¯ Ø£Ù‚ØµÙ‰
+                    overflow: TextOverflow.ellipsis, // ÙŠØ®ØªÙ… Ø¨Ù†Ù‚Ø· Ù„Ùˆ Ø§Ù„Ù†Øµ Ø·ÙˆÙŠÙ„
+                  ),
+                  
+                  const SizedBox(height: 4),
+                  
+                  // ÙˆØµÙ Ø§Ù„Ù…Ù†ØªØ¬
+                  Text(
+                    description,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 11,
+                    ),
+                    maxLines: 2, // Ø³Ø·Ø±ÙŠÙ† Ù„Ù„ÙˆØµÙ
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  
+                  const Spacer(), // Ø¨ÙŠØ²Ù‚ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ù„ØªØ­Øª Ø¹Ø´Ø§Ù† Ø§Ù„ÙƒØ§Ø±Øª ÙŠØ¨Ù‚Ù‰ Ù…ØªÙ†Ø§Ø³Ù‚
+                  
+                  // Ø§Ù„Ø£Ø³Ø¹Ø§Ø±
+                  Row(
+                    children: [
+                      // Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø­Ø§Ù„ÙŠ
+                      Text(
+                        price,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      // Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ù‚Ø¯ÙŠÙ… (Ù„Ùˆ Ù…ÙˆØ¬ÙˆØ¯)
+                      if (oldPrice.isNotEmpty)
+                        Text(
+                          oldPrice,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                            decoration: TextDecoration.lineThrough, // Ø®Ø· ÙÙˆÙ‚ Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ù‚Ø¯ÙŠÙ…
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+====================================================
+FILE: C:\Users\melad\Desktop\Final_E_Commerce_App-main\Final_E_Commerce_App-main\lib\core\common\widgets\vertical_product_card.dart
+====================================================
+
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:t_store/core/utils/constants/colors.dart';
+import 'package:t_store/core/utils/constants/sizes.dart';
+import 'package:t_store/core/utils/helpers/helper_functions.dart';
+import 'package:t_store/features/shop/domain/entities/product_entity.dart';
+import 'package:t_store/features/shop/presentation/views/product_details_view.dart';
+
+class VerticalProductCard extends StatelessWidget {
+  final ProductEntity product;
+
+  const VerticalProductCard({super.key, required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsView(product: product),
+          ),
+        );
+      },
+      child: Container(
+        width: 180,
+        padding: const EdgeInsets.all(1),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 9,
+              spreadRadius: 0,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(TSizes.productImageRadius),
+          color: dark ? TColors.darkerGrey : TColors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Thumbnail, Badge & Wishlist Icon
+            Container(
+              height: 180,
+              padding: const EdgeInsets.all(TSizes.sm),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(TSizes.productImageRadius),
+                color: dark ? TColors.dark : TColors.light,
+              ),
+              child: Stack(
+                children: [
+                  // Product Image
+                  Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(TSizes.productImageRadius),
+                      child: product.images.isNotEmpty && product.images.first.isNotEmpty
+                          ? Image.network(
+                              product.images.first,
+                              fit: BoxFit.contain,
+                              errorBuilder: (context, error, stackTrace) => const Icon(Icons.shopping_bag, size: 80, color: TColors.primary),
+                            )
+                          : const Icon(Icons.shopping_bag, size: 80, color: TColors.primary),
+                    ),
+                  ),
+
+                  // Sale Tag / Badge
+                  Positioned(
+                    top: 12,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: TSizes.xs / 2),
+                      decoration: BoxDecoration(
+                        color: TColors.secondary.withValues(alpha: 0.8),
+                        borderRadius: BorderRadius.circular(TSizes.sm),
+                      ),
+                      child: const Text(
+                        '25% OFF',
+                        style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+
+                  // Wishlist Icon Button
+                  const Positioned(
+                    top: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Icon(Iconsax.heart, color: Colors.red, size: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: TSizes.spaceBtwItems / 2),
+
+            // Details Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Product Title
+                  Text(
+                    product.name,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: dark ? Colors.white : TColors.textPrimary,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems / 2),
+                  
+                  // Brand Name
+                  Row(
+                    children: [
+                      Text(
+                        product.brandName ?? 'Nexora',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: const TextStyle(color: TColors.darkGrey, fontSize: 11),
+                      ),
+                      const SizedBox(width: TSizes.xs),
+                      const Icon(Icons.verified, color: TColors.primary, size: 12),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            const Spacer(),
+
+            // Price Row
+            Padding(
+              padding: const EdgeInsets.only(left: TSizes.sm, right: TSizes.sm, bottom: TSizes.sm),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Price
+                  Text(
+                    '\$${product.price}',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: TColors.primary),
+                  ),
+                  
+                  // Add to Cart Button Container
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: TColors.dark,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(TSizes.cardRadiusMd),
+                        bottomRight: Radius.circular(TSizes.productImageRadius),
+                      ),
+                    ),
+                    child: const SizedBox(
+                      width: TSizes.iconLg * 1.2,
+                      height: TSizes.iconLg * 1.2,
+                      child: Center(child: Icon(Icons.add, color: Colors.white)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+====================================================
+FILE: C:\Users\melad\Desktop\Final_E_Commerce_App-main\Final_E_Commerce_App-main\lib\features\shop\presentation\views\product_details_view.dart
+====================================================
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:t_store/core/utils/constants/colors.dart';
+import 'package:t_store/core/utils/constants/sizes.dart';
+import 'package:t_store/core/utils/helpers/helper_functions.dart';
+import 'package:t_store/core/utils/localizations/app_localizations.dart';
+import 'package:t_store/features/shop/domain/entities/product_entity.dart';
+import 'package:t_store/features/shop/presentation/cubit/cart_cubit.dart';
+import 'package:t_store/features/wishlist/presentation/cubit/wishlist_cubit.dart';
+import 'package:t_store/features/wishlist/presentation/cubit/wishlist_state.dart';
+
+class ProductDetailsView extends StatelessWidget {
+  final ProductEntity product;
+
+  const ProductDetailsView({
+    super.key,
+    required this.product,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CartCubit(),
+      child: ProductDetailsViewBody(product: product),
+    );
+  }
+}
+
+class ProductDetailsViewBody extends StatefulWidget {
+  final ProductEntity product;
+
+  const ProductDetailsViewBody({
+    super.key,
+    required this.product,
+  });
+
+  @override
+  State<ProductDetailsViewBody> createState() =>
+      _ProductDetailsViewBodyState();
+}
+
+class _ProductDetailsViewBodyState
+    extends State<ProductDetailsViewBody> {
+  String selectedSize = 'S';
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
+
+    return Scaffold(
+      backgroundColor:
+          dark ? TColors.dark : TColors.lightContainer,
+
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(
+          TSizes.defaultSpace / 1.5,
+        ),
+        decoration: BoxDecoration(
+          color: dark ? TColors.darkerGrey : TColors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(TSizes.cardRadiusLg),
+            topRight: Radius.circular(TSizes.cardRadiusLg),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'checkout'.tr(context),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  '\$${widget.product.price}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: TColors.primary,
+                  ),
+                ),
+              ],
+            ),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: TSizes.spaceBtwItems,
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding:
+                        const EdgeInsets.all(TSizes.md),
+                    backgroundColor: TColors.primary,
+                    side: const BorderSide(
+                      color: TColors.primary,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                        TSizes.cardRadiusMd,
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    context.read<CartCubit>().addToCart(
+                          CartItemModel(
+                            title: widget.product.name,
+                            price:
+                                '\$${widget.product.price}',
+                            image: widget.product.images.isNotEmpty
+                                ? widget.product.images.first
+                                : '',
+                            brandName:
+                                widget.product.brandName ??
+                                    'Nexora',
+                          ),
+                        );
+
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Added to Cart Successfully! ðŸš€',
+                        ),
+                        duration:
+                            Duration(seconds: 1),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'add_to_cart'.tr(context),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 350,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: dark
+                    ? TColors.darkContainer
+                    : TColors.white,
+                borderRadius:
+                    const BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                        TSizes.defaultSpace * 2,
+                      ),
+                      child: Center(
+                        child: widget.product.images.isNotEmpty &&
+                                widget.product.images.first.isNotEmpty
+                            ? Image.network(
+                                widget.product.images.first,
+                                fit: BoxFit.contain,
+                                errorBuilder:
+                                    (context, error,
+                                        stackTrace) {
+                                  return const Icon(
+                                    Icons.shopping_bag,
+                                    size: 120,
+                                    color:
+                                        TColors.primary,
+                                  );
+                                },
+                              )
+                            : const Icon(
+                                Icons.shopping_bag,
+                                size: 120,
+                                color:
+                                    TColors.primary,
+                              ),
+                      ),
+                    ),
+                  ),
+
+                  Positioned(
+                    top: TSizes.spaceBtwSections,
+                    left: TSizes.defaultSpace,
+                    right: TSizes.defaultSpace,
+                    child: Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: dark
+                              ? TColors.dark
+                              : TColors.white,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                            onPressed: () =>
+                                Navigator.pop(context),
+                          ),
+                        ),
+
+                        // =========================
+                        // WISHLIST BUTTON
+                        // =========================
+                        BlocBuilder<
+                            WishlistCubit,
+                            WishlistState>(
+                          builder:
+                              (context, state) {
+                            final wishlistCubit =
+                                context.read<
+                                    WishlistCubit>();
+
+                            final inWishlist =
+                                wishlistCubit
+                                    .isInWishlist(
+                              widget.product.id,
+                            );
+
+                            return CircleAvatar(
+                              backgroundColor: dark
+                                  ? TColors.dark
+                                  : TColors.white,
+                              child: IconButton(
+                                icon: Icon(
+                                  inWishlist
+                                      ? Iconsax.heart5
+                                      : Iconsax.heart,
+                                  color: inWishlist
+                                      ? Colors.red
+                                      : (dark
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
+                                onPressed: () async {
+                                  final wasInWishlist =
+                                      wishlistCubit
+                                          .isInWishlist(
+                                    widget.product.id,
+                                  );
+
+                                  await wishlistCubit
+                                      .toggleWishlist(
+                                    widget.product.id,
+                                  );
+
+                                  if (!context.mounted) {
+                                    return;
+                                  }
+
+                                  ScaffoldMessenger.of(
+                                          context)
+                                      .showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        wasInWishlist
+                                            ? 'Removed from Wishlist'
+                                            : 'Added to Wishlist',
+                                      ),
+                                      duration:
+                                          const Duration(
+                                        seconds: 1,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(
+                TSizes.defaultSpace,
+              ),
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          widget.product.name,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight:
+                                FontWeight.bold,
+                            color: dark
+                                ? Colors.white
+                                : TColors.textPrimary,
+                          ),
+                        ),
+                      ),
+
+                      Container(
+                        padding:
+                            const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration:
+                            BoxDecoration(
+                          color: TColors.primary
+                              .withValues(alpha: 0.1),
+                          borderRadius:
+                              BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          widget.product.brandName ??
+                              'Nexora',
+                          style: const TextStyle(
+                            color: TColors.primary,
+                            fontWeight:
+                                FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 18,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            '4.5',
+                            style: TextStyle(
+                              fontWeight:
+                                  FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            ' (20)',
+                            style: TextStyle(
+                              color:
+                                  TColors.darkGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Text(
+                        widget.product.stock > 0
+                            ? '${'not_registered'.tr(context) == 'ØºÙŠØ± Ù…Ø³Ø¬Ù„' ? 'Ù…ØªØ§Ø­ ÙÙŠ Ø§Ù„Ù…Ø®Ø²ÙˆÙ†' : 'In Stock'} (${widget.product.stock})'
+                            : 'ØºÙŠØ± Ù…ØªÙˆÙØ±',
+                        style: TextStyle(
+                          color:
+                              widget.product.stock > 0
+                                  ? Colors.green
+                                  : Colors.red,
+                          fontWeight:
+                              FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+
+                  Text(
+                    'Profile Information'.tr(context) ==
+                            'Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ'
+                        ? 'ÙˆØµÙ Ø§Ù„Ù…Ù†ØªØ¬'
+                        : 'Product Description',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight:
+                          FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems / 2,
+                  ),
+
+                  Text(
+                    widget.product.description ??
+                        'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ÙˆØµÙ Ù…ØªØ§Ø­ Ù„Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬.',
+                    style: const TextStyle(
+                      color: TColors.textSecondary,
+                      fontSize: 13,
+                      height: 1.5,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+
+                  Text(
+                    'Profile Information'.tr(context) ==
+                            'Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ'
+                        ? 'Ø§Ù„Ù…Ù‚Ø§Ø³'
+                        : 'Size',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight:
+                          FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+
+                  Row(
+                    children: [
+                      _buildSizeChip('S', dark),
+                      const SizedBox(width: 8),
+                      _buildSizeChip('M', dark),
+                      const SizedBox(width: 8),
+                      _buildSizeChip('L', dark),
+                      const SizedBox(width: 8),
+                      _buildSizeChip('XL', dark),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections * 2,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSizeChip(
+    String size,
+    bool dark,
+  ) {
+    final isSelected =
+        selectedSize == size;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedSize = size;
+        });
+      },
+      child: Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+          color: isSelected
+              ? TColors.primary
+              : (dark
+                  ? TColors.darkContainer
+                  : Colors.white),
+          borderRadius:
+              BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected
+                ? TColors.primary
+                : (dark
+                    ? TColors.darkerGrey
+                    : TColors.borderPrimary),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            size,
+            style: TextStyle(
+              color: isSelected
+                  ? Colors.white
+                  : (dark
+                      ? Colors.white
+                      : Colors.black),
+              fontWeight:
+                  FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
