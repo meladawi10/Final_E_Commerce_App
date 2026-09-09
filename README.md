@@ -96,7 +96,7 @@ lib/
 ---
 
 ## 👥 Author & Lead Developer
-
+##Mohamed Eladawi
 **Muhammad ElDeeb**
 - Full-Stack Flutter & Mobile Architect
 - Focused on Clean Architecture, REST APIs, and High-Performance Mobile Apps.
