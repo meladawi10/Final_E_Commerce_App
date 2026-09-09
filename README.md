@@ -101,7 +101,7 @@ lib/
 ## Aya Ayman
 ## Mennatullah Hussein 
 ## Ghadeer Mostafa
-## Rana elsaeed 
+## Rana Elsaeed 
 - Full-Stack Flutter & Mobile Architect
 - Focused on Clean Architecture, REST APIs, and High-Performance Mobile Apps.
 
