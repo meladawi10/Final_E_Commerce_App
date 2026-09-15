@@ -107,7 +107,4 @@ lib/
 - Focused on Clean Architecture, REST APIs, and High-Performance Mobile Apps.
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 # E_Commerce_App
